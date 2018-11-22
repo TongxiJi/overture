@@ -11,7 +11,7 @@ import (
 	"sync"
 	"time"
 
-	log "github.com/Sirupsen/logrus"
+	log "github.com/sirupsen/logrus"
 	"github.com/miekg/dns"
 	"strconv"
 )
@@ -30,6 +30,12 @@ type Cache struct {
 
 	capacity int
 	table    map[string]*elem
+	Listener *Listener
+}
+
+type Listener struct {
+	OnRemoveMessage func(s string)
+	OnInsertMessage func(s string, m *dns.Msg)
 }
 
 // New returns a new cache with the capacity and the ttl specified.
@@ -48,6 +54,9 @@ func (c *Cache) Capacity() int { return c.capacity }
 func (c *Cache) Remove(s string) {
 	c.Lock()
 	delete(c.table, s)
+	if c.Listener != nil && c.Listener.OnRemoveMessage != nil {
+		c.Listener.OnRemoveMessage(s)
+	}
 	c.Unlock()
 }
 
@@ -79,6 +88,9 @@ func (c *Cache) InsertMessage(s string, m *dns.Msg) {
 	ttl := time.Duration(m.Answer[0].Header().Ttl) * time.Second
 	if _, ok := c.table[s]; !ok {
 		c.table[s] = &elem{time.Now().UTC().Add(ttl), m.Copy()}
+		if c.Listener != nil && c.Listener.OnInsertMessage != nil {
+			c.Listener.OnInsertMessage(s, m.Copy())
+		}
 	}
 	log.Debug("Cached: " + s)
 	c.EvictRandom()

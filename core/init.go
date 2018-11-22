@@ -6,17 +6,20 @@
 package core
 
 import (
-	"github.com/shadowsocks/overture/core/config"
-	"github.com/shadowsocks/overture/core/inbound"
-	"github.com/shadowsocks/overture/core/outbound"
-	"github.com/shadowsocks/overture/core/utils"
+	"github.com/TongxiJi/overture/core/config"
+	"github.com/TongxiJi/overture/core/inbound"
+	"github.com/TongxiJi/overture/core/outbound"
+	"github.com/TongxiJi/overture/core/utils"
+	"github.com/TongxiJi/overture/core/cache"
 )
 
 // Initiate the server with config file
-func InitServer(configFilePath string, vpnMode bool) {
-
+func InitServer(configFilePath string,
+	vpnMode bool,
+	cacheListener *cache.Listener,
+) {
 	config := config.NewConfig(configFilePath)
-
+	config.Cache.Listener = cacheListener
 	// New dispatcher without ClientBundle, ClientBundle must be initiated when server is running
 	d := outbound.Dispatcher{
 		PrimaryDNS:         config.PrimaryDNS,

@@ -8,8 +8,8 @@ import (
 	"flag"
 	"runtime"
 
-	log "github.com/Sirupsen/logrus"
-	"github.com/shadowsocks/overture/core"
+	log "github.com/sirupsen/logrus"
+	"github.com/TongxiJi/overture/core"
 )
 
 func main() {
@@ -37,9 +37,9 @@ func main() {
 
 	log_init()
 
-	log.Info("If you need any help, please visit the project repository: https://github.com/shadowsocks/overture")
+	log.Info("If you need any help, please visit the project repository: https://github.com/TongxiJi/overture")
 
 	runtime.GOMAXPROCS(processorNumber)
 
-	core.InitServer(configPath, vpnMode)
+	core.InitServer(configPath, vpnMode, nil)
 }

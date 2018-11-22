@@ -9,8 +9,8 @@ import (
 	"strings"
 	"time"
 
-	log "github.com/Sirupsen/logrus"
-	"github.com/shadowsocks/overture/core/common"
+	log "github.com/sirupsen/logrus"
+	"github.com/TongxiJi/overture/core/common"
 )
 
 type hostsLine struct {

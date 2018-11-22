@@ -14,10 +14,10 @@ import (
 	"strconv"
 	"strings"
 
-	log "github.com/Sirupsen/logrus"
-	"github.com/shadowsocks/overture/core/cache"
-	"github.com/shadowsocks/overture/core/common"
-	"github.com/shadowsocks/overture/core/hosts"
+	log "github.com/sirupsen/logrus"
+	"github.com/TongxiJi/overture/core/cache"
+	"github.com/TongxiJi/overture/core/common"
+	"github.com/TongxiJi/overture/core/hosts"
 )
 
 type Config struct {

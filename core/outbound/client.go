@@ -6,12 +6,12 @@ import (
 	"net"
 	"time"
 
-	log "github.com/Sirupsen/logrus"
+	log "github.com/sirupsen/logrus"
 	"github.com/miekg/dns"
-	"github.com/shadowsocks/overture/core/cache"
-	"github.com/shadowsocks/overture/core/common"
-	"github.com/shadowsocks/overture/core/hosts"
-	"github.com/shadowsocks/overture/core/utils"
+	"github.com/TongxiJi/overture/core/cache"
+	"github.com/TongxiJi/overture/core/common"
+	"github.com/TongxiJi/overture/core/hosts"
+	"github.com/TongxiJi/overture/core/utils"
 	"golang.org/x/net/proxy"
 )
 

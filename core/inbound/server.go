@@ -6,9 +6,9 @@ import (
 	"os"
 	"sync"
 
-	log "github.com/Sirupsen/logrus"
+	log "github.com/sirupsen/logrus"
 	"github.com/miekg/dns"
-	"github.com/shadowsocks/overture/core/outbound"
+	"github.com/TongxiJi/overture/core/outbound"
 )
 
 type Server struct {
