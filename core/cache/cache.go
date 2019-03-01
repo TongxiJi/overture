@@ -34,7 +34,7 @@ type Cache struct {
 }
 
 type Listener struct {
-	OnRemoveMessage func(s string)
+	OnRemoveMessage func(s string, m *dns.Msg)
 	OnInsertMessage func(s string, m *dns.Msg)
 }
 
@@ -51,11 +51,11 @@ func New(capacity int) *Cache {
 
 func (c *Cache) Capacity() int { return c.capacity }
 
-func (c *Cache) Remove(s string) {
+func (c *Cache) Remove(s string, m *dns.Msg) {
 	c.Lock()
 	delete(c.table, s)
 	if c.Listener != nil && c.Listener.OnRemoveMessage != nil {
-		c.Listener.OnRemoveMessage(s)
+		c.Listener.OnRemoveMessage(s, m)
 	}
 	c.Unlock()
 }
@@ -132,7 +132,7 @@ func (c *Cache) Hit(key string, msgid uint16) *dns.Msg {
 			return m
 		}
 		// Expired! /o\
-		c.Remove(key)
+		c.Remove(key, m)
 	}
 	return nil
 }
